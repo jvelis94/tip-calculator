@@ -33,8 +33,17 @@ class Details extends React.Component {
         });
     };
 
+    renderPerson = () => {
+        return (
+            <Person
+                person_tax = {this.state.tax}
+                person_tip = {this.state.tip}
+            />
+        )
+    }
+
     render() {
-        let grand_total= parseFloat(this.state.meal_total) + parseFloat(this.state.tax) + parseFloat(this.state.tip);
+        let grand_total = parseFloat(this.state.meal_total) * (1 + parseFloat(this.state.tax)/100) * (1 + parseFloat(this.state.tip)/100);
         return (
             <div className='details'>
                 <form>
@@ -47,6 +56,7 @@ class Details extends React.Component {
                     <label htmlFor='total'>Grand Total:</label>
                     <input name='total' value={grand_total} readOnly></input><br></br>
                 </form>
+                {this.renderPerson()}
             </div>
         );
     }
@@ -56,22 +66,31 @@ class Person extends React.Component {
     constructor(props) {
         super(props);
         this.state = {
-            person_meal_total: 100,
-            person_total: 200,
+            person_meal_total: 0,
+            person_total: 0,
         }
     }
+
+    handlePersonTotal = event => {
+        this.setState({
+            person_meal_total: event.target.value
+        });
+    };
+    
     render() {
+        let person_total = parseFloat(this.state.person_meal_total) * (1 + parseFloat(this.props.person_tax/100)) * (1 + parseFloat(this.props.person_tip)/100);
+
         return (
             <div className='person'>
                 <h3>Person #1</h3>
                 <form>
                     <label htmlFor='person-meal'>Meal total: </label>
-                    <input name='person-meal'></input>
+                    <input name='person-meal' value={this.state.person_meal_total} onChange={this.handlePersonTotal}></input>
                 </form>
                 <h3>Should Pay</h3>
-                    <p>Tax: {props.tax}</p>
-                    <p>Tip: {props.tip}</p>
-                    <p>Total: {this.state.person_total}</p>
+                    <p>Tax: {(parseFloat(this.props.person_tax)/100) * parseFloat(this.state.person_meal_total)}</p>
+                    <p>Tip: {(parseFloat(this.props.person_tip)/100) * parseFloat(this.state.person_meal_total)}</p>
+                    <p>Total: {person_total}</p>
             </div>
         )
     }
@@ -97,7 +116,6 @@ class Calculator extends React.Component {
         return (
             <div>
                 <Details/>
-                <Person/>
                 <AddPerson/>
             </div>
         )
