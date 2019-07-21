@@ -15,6 +15,7 @@ code {
 .order-total {
   display: block;
   text-align: center;
+  margin: 20px 0;
 }
 
 .order-total form {
@@ -26,9 +27,42 @@ code {
 .person {
   display: flex;
   justify-content: space-around;
+  border-top: .5px solid #ddd;
+  padding: 20px 0;
+  width: 90%;
+  margin: 0 auto;
+}
 
+.person h3 {
+  margin: 0;
+}
+
+.person form {
+  padding-top: 20px;
 }
 
 .button {
+  text-align: center;
+  border-top: 0.5px solid #ddd;
+  padding: 20px 0;
+  width: 90%;
+  margin: 0 auto;
+}
+
+.breakdown {
+  width: 250px;
+}
+
+.person-details {
+  display: flex;
+  justify-content: space-between;
+  padding-top: 20px;
+}
+
+.person-details p {
+  margin: 0px;
+}
+
+.breakdown h3 {
   text-align: center;
 }

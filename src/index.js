@@ -131,9 +131,11 @@ class Person extends React.Component {
                 </div>
                 <div className='breakdown'>
                     <h3>Should Pay</h3>
-                    <p>Tax: {(parseFloat(this.props.person_tax)/100) * parseFloat(this.state.person_meal_total)}</p>
-                    <p>Tip: {(parseFloat(this.props.person_tip)/100) * parseFloat(this.state.person_meal_total)}</p>
-                    <p>Total: {person_total.toFixed(2)}</p>
+                    <div className='person-details'>
+                        <p>Tax: {(parseFloat(this.props.person_tax)/100) * parseFloat(this.state.person_meal_total)}</p>
+                        <p>Tip: {(parseFloat(this.props.person_tip)/100) * parseFloat(this.state.person_meal_total)}</p>
+                        <p>Total: {person_total.toFixed(2)}</p>
+                    </div>
                 </div>    
             </div>
         )
