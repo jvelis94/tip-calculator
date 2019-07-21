@@ -12,6 +12,18 @@ code {
     monospace;
 }
 
+* {
+  background-color: #F0F0F0;
+}
+
+header {
+  font-size: 24px;
+  font-weight: bold;
+  width: 90%;
+  margin: 20px auto;
+  color: #0066FF;
+}
+
 .order-total {
   display: block;
   text-align: center;
@@ -25,24 +37,33 @@ code {
   font-weight: bold;
 }
 
+.order-total label {
+  font-size: 18px;
+}
+
 .order-total input {
-  margin-bottom: 5px;
-  margin-top: 5px;
+  margin-bottom: 8px;
+  margin-top: 8px;
   height: 20px;
   font-size: 16px;
+  background-color: #ffffff;
+  border-radius: 5px;
+  border: 0.5px solid #ffffff;
 }
 
 .person {
   display: flex;
   justify-content: space-around;
-  border-top: .5px solid #ddd;
+  border-top: .5px solid #0066FF;
   padding: 20px 0;
   width: 90%;
   margin: 0 auto;
+  font-size: 16 px;
 }
 
 .person h3 {
   margin: 0;
+  font-size: 16px;
 }
 
 .person form {
@@ -52,23 +73,27 @@ code {
 .person input {
   height: 20px;
   font-size: 16px;
+  background-color: #ffffff;
+  border-radius: 5px;
+  border: 0.5px solid #ffffff;
 }
 
 .button {
   text-align: center;
-  border-top: 0.5px solid #ddd;
+  border-top: 0.5px solid #0066FF;
   padding: 20px 0;
   width: 90%;
   margin: 0 auto;
 }
 
 button {
-  background-color: #000000;
+  background-color: #0066FF;
   color: #ffffff;
-  font-size: 16px;
+  font-size: 14px;
   font-weight: bold;
-  border-radius: 10px;
-  padding: 8px 12px;
+  border-radius: 8px;
+  border: 0.5px solid #ffffff;
+  padding: 5px 8px;
 }
 
 .breakdown {
@@ -87,6 +112,8 @@ button {
 
 .breakdown h3 {
   text-align: center;
+  font-size: 16px;
+
 }
 
 @media (max-width: 1000px) {

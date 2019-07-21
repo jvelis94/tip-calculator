@@ -4,6 +4,12 @@ import './index.css';
 // import App from './App';
 // import * as serviceWorker from './serviceWorker';
 
+function Header() {
+    return (
+        <header>Split Bill Calculator</header>
+    )
+}
+
 function AddPerson(props) {
     return (
         <div className='button'>
@@ -146,6 +152,7 @@ class Calculator extends React.Component {
     render() {
         return (
             <div>
+                <Header />
                 <Details/>
             </div>
         )
