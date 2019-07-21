@@ -84,13 +84,13 @@ class Details extends React.Component {
             <div className='details'>
                 <div className='order-total'>
                     <form>
-                        <label htmlFor='meal'>Meal total: </label><br></br>
+                        <label htmlFor='meal'>Meal total: ($)</label><br></br>
                         <input name='meal' placeholder={this.state.meal_total} onChange={this.handleMealChange}></input><br></br>
-                        <label htmlFor='tax'>Tax: </label><br></br>
+                        <label htmlFor='tax'>Tax: (%)</label><br></br>
                         <input name='tax' placeholder={this.state.tax} onChange={this.handleTaxChange}></input><br></br>
-                        <label htmlFor='tip'>Tip: </label><br></br>
+                        <label htmlFor='tip'>Tip: (%)</label><br></br>
                         <input name='tip' placeholder={this.state.tip} onChange={this.handleTipChange}></input><br></br>
-                        <label htmlFor='total'>Grand Total:</label><br></br>
+                        <label htmlFor='total'>Grand Total: ($)</label><br></br>
                         <input name='total' value={grand_total.toFixed(2)} readOnly></input><br></br>
                     </form>
                 </div>
@@ -125,16 +125,16 @@ class Person extends React.Component {
                 <div className='total-details'>
                     <h3>Person</h3>
                     <form>
-                        <label htmlFor='person-meal'>Meal total: </label>
+                        <label htmlFor='person-meal'>Meal total: $ </label>
                         <input name='person-meal' value={this.state.person_meal_total} onChange={this.handlePersonTotal}></input>
                     </form>
                 </div>
                 <div className='breakdown'>
                     <h3>Should Pay</h3>
                     <div className='person-details'>
-                        <p>Tax: {(parseFloat(this.props.person_tax)/100) * parseFloat(this.state.person_meal_total)}</p>
-                        <p>Tip: {(parseFloat(this.props.person_tip)/100) * parseFloat(this.state.person_meal_total)}</p>
-                        <p>Total: {person_total.toFixed(2)}</p>
+                        <p>Tax: ${((parseFloat(this.props.person_tax)/100) * parseFloat(this.state.person_meal_total)).toFixed(2)}</p>
+                        <p>Tip: ${((parseFloat(this.props.person_tip)/100) * parseFloat(this.state.person_meal_total)).toFixed(2)}</p>
+                        <p>Total: ${person_total.toFixed(2)}</p>
                     </div>
                 </div>    
             </div>
