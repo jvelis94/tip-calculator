@@ -84,12 +84,10 @@ class Details extends React.Component {
     renderPerson = () => {
         return (
             <Person
-                number = {this.state.counter}
                 person_tax = {this.state.tax}
                 person_tip = {this.state.tip}
                 shared_items = {this.state.shared_items}
                 counter = {this.state.counter}
-
             />
         )
     }
@@ -103,12 +101,12 @@ class Details extends React.Component {
     }
 
     render() {
-        let grand_total = parseFloat(this.state.meal_total) + ((parseFloat(this.state.meal_total)) * (parseFloat(this.state.tax)/100)) + ((parseFloat(this.state.meal_total)) * (parseFloat(this.state.tip)/100)) + parseFloat(this.state.shared_items);
+        let grand_total = parseFloat(this.state.meal_total) + ((parseFloat(this.state.meal_total)) * (parseFloat(this.state.tax)/100)) + ((parseFloat(this.state.meal_total)) * (parseFloat(this.state.tip)/100));
         return (
             <div className='details'>
                 <div className='order-total'>
                     <form>
-                        <label htmlFor='meal'>Meal total: ($)</label><br></br>
+                        <label htmlFor='meal'>Meal subtotal: ($)</label><br></br>
                         <input name='meal' placeholder={this.state.meal_total} onChange={this.handleMealChange}></input><br></br>
                         <label htmlFor='meal'>Shared items: ($)</label><br></br>
                         <input name='meal' placeholder={this.state.shared_items} onChange={this.handleSharedItemsChange}></input><br></br>
