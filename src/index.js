@@ -37,11 +37,15 @@ class Details extends React.Component {
                 shared_items: 0,
                 tax: 0,
                 tip: 0,
-                grand_total: 0,
                 persons: [],
                 counter: 1,
             };
             this.handleClick = this.handleClick.bind(this)
+            this.handleMealChange = this.handleMealChange.bind(this)
+            this.handleSharedItemsChange = this.handleSharedItemsChange.bind(this)
+            this.handleTaxChange = this.handleTaxChange.bind(this)
+            this.handleTipChange = this.handleTipChange.bind(this)
+
     }
 
     handleMealChange = event => {
@@ -69,18 +73,18 @@ class Details extends React.Component {
     };
 
     handleClick = () => {
-        let clickedPlus = this.state.persons.concat(this.renderPerson())
         let counter = this.state.counter + 1
+        let addPerson = this.state.persons.concat(this.renderPerson())
         this.setState({
-            persons: clickedPlus,
+            persons: addPerson,
             counter: counter,
         });
-        
     }
 
     renderPerson = () => {
         return (
             <Person
+                number = {this.state.counter}
                 person_tax = {this.state.tax}
                 person_tip = {this.state.tip}
                 shared_items = {this.state.shared_items}
@@ -116,7 +120,6 @@ class Details extends React.Component {
                         <input name='total' value={grand_total.toFixed(2)} readOnly></input><br></br>
                     </form>
                 </div>
-                {this.renderPerson()}
                 <PersonList persons={this.state.persons} />
                 {this.renderAddPerson()}
             </div>
@@ -128,35 +131,37 @@ class Person extends React.Component {
     constructor(props) {
         super(props);
         this.state = {
-            person_meal_total: [],
-            person_total: 0,
+            person_tax: props.person_tax,
+            person_tip: props.person_tip,
+            person_meal_subtotal: 0,
+            shared_items: props.shared_items,
         }
     }
 
-    handlePersonTotal = event => {
+    handlePersonSubtotal = event => {
         this.setState({
-            person_meal_total: event.target.value
+            person_meal_subtotal: event.target.value
         });
     };
     
     render() {
-        let person_total = parseFloat(this.state.person_meal_total) + parseFloat(this.props.shared_items) +     ((parseFloat(this.state.person_meal_total)) * (parseFloat(this.props.person_tax)/100)) + ((parseFloat(this.state.person_meal_total)) * (parseFloat(this.props.person_tip)/100));
-
+        let person_total = parseFloat(this.state.person_meal_subtotal) + parseFloat(this.props.shared_items) + ((parseFloat(this.state.person_meal_subtotal)) * (parseFloat(this.state.person_tax)/100)) + ((parseFloat(this.state.person_meal_subtotal)) * (parseFloat(this.state.person_tip)/100));
+        let shared_items = this.state.shared_items / this.props.counter;
         return (
             <div className='person'>
                 <div className='total-details'>
-                    <h3>Person</h3>
+                    <h3>Person {this.props.number} </h3>
                     <form>
                         <label htmlFor='person-meal'>Personal Subtotal: $ </label>
-                        <input name='person-meal' value={this.state.person_meal_total} onChange={this.handlePersonTotal}></input>
+                        <input name='person-meal' value={this.state.person_meal_subtotal} onChange={this.handlePersonSubtotal}></input>
                     </form>
                 </div>
                 <div className='breakdown'>
                     <h3>Should Pay</h3>
                     <div className='person-details'>
-                        <p>Shared: ${(parseFloat(this.props.shared_items)/this.props.counter).toFixed(2)}</p>
-                        <p>Tax: ${((parseFloat(this.props.person_tax)/100) * parseFloat(this.state.person_meal_total)).toFixed(2)}</p>
-                        <p>Tip: ${((parseFloat(this.props.person_tip)/100) * parseFloat(this.state.person_meal_total)).toFixed(2)}</p>
+                        <p>Shared: ${(parseFloat(shared_items)).toFixed(2)}</p>
+                        <p>Tax: ${((parseFloat(this.state.person_tax)/100) * parseFloat(this.state.person_meal_subtotal)).toFixed(2)}</p>
+                        <p>Tip: ${((parseFloat(this.state.person_tip)/100) * parseFloat(this.state.person_meal_subtotal)).toFixed(2)}</p>
                         <p>Total: ${person_total.toFixed(2)}</p>
                     </div>
                 </div>    
@@ -164,6 +169,9 @@ class Person extends React.Component {
         )
     }
 }
+
+
+
 
 class Calculator extends React.Component {
     render() {
