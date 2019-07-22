@@ -147,7 +147,7 @@ class Person extends React.Component {
                 <div className='total-details'>
                     <h3>Person</h3>
                     <form>
-                        <label htmlFor='person-meal'>Personal subtotal: $ </label>
+                        <label htmlFor='person-meal'>Personal Subtotal: $ </label>
                         <input name='person-meal' value={this.state.person_meal_total} onChange={this.handlePersonTotal}></input>
                     </form>
                 </div>
