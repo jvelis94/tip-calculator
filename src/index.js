@@ -157,9 +157,9 @@ class Person extends React.Component {
                 <div className='breakdown'>
                     <h3>Should Pay</h3>
                     <div className='person-details'>
-                        <p>Shared: ${(parseFloat(shared_items)).toFixed(2)}</p>
-                        <p>Tax: ${((parseFloat(this.state.person_tax)/100) * parseFloat(this.state.person_meal_subtotal)).toFixed(2)}</p>
-                        <p>Tip: ${((parseFloat(this.state.person_tip)/100) * parseFloat(this.state.person_meal_subtotal)).toFixed(2)}</p>
+                        <p>Shared: ${(parseFloat(shared_items)).toFixed(2)}</p><br></br>
+                        <p>Tax: ${((parseFloat(this.state.person_tax)/100) * parseFloat(this.state.person_meal_subtotal)).toFixed(2)}</p><br></br>
+                        <p>Tip: ${((parseFloat(this.state.person_tip)/100) * parseFloat(this.state.person_meal_subtotal)).toFixed(2)}</p><br></br>
                         <p>Total: ${person_total.toFixed(2)}</p>
                     </div>
                 </div>    

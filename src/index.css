@@ -121,15 +121,20 @@ button {
 
   .breakdown {
     margin: 0 auto;
+    width: 90%;
+  }
+
+  .person-details {
+    display: block;
+    text-align: center;
   }
 
   .total-details {
-    width: 450px;
     margin: 0 auto;
     padding-bottom: 20px;
   }
 
-  .total-details h3 {
+  .total-details h3, form, input {
     text-align: center;
   }
 }
