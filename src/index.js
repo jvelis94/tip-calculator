@@ -33,12 +33,13 @@ class Details extends React.Component {
     constructor(props) {
         super(props); 
             this.state = {
-                meal_total: 0,
+                meal_subtotal: 0,
                 shared_items: 0,
                 tax: 0,
                 tip: 0,
                 persons: [],
                 counter: 1,
+                diners: 0,
             };
             this.handleClick = this.handleClick.bind(this)
             this.handleMealChange = this.handleMealChange.bind(this)
@@ -50,7 +51,13 @@ class Details extends React.Component {
 
     handleMealChange = event => {
         this.setState({
-            meal_total: event.target.value,
+            meal_subtotal: event.target.value,
+        });
+    };
+
+    handleDinersChange = event => {
+        this.setState({
+            diners: event.target.value,
         });
     };
 
@@ -72,13 +79,18 @@ class Details extends React.Component {
         });
     };
 
-    handleClick = () => {
+    handleClick = (event) => {
+        if (this.state.meal_subtotal === 0) {
+            alert('Please fill the above form before continuing');
+        } else {
         let counter = this.state.counter + 1
         let addPerson = this.state.persons.concat(this.renderPerson())
         this.setState({
             persons: addPerson,
             counter: counter,
-        });
+
+        });}
+        this.forceUpdate()
     }
 
     renderPerson = () => {
@@ -88,6 +100,7 @@ class Details extends React.Component {
                 person_tip = {this.state.tip}
                 shared_items = {this.state.shared_items}
                 counter = {this.state.counter}
+                diners = {this.state.diners}
             />
         )
     }
@@ -101,13 +114,13 @@ class Details extends React.Component {
     }
 
     render() {
-        let grand_total = parseFloat(this.state.meal_total) + ((parseFloat(this.state.meal_total)) * (parseFloat(this.state.tax)/100)) + ((parseFloat(this.state.meal_total)) * (parseFloat(this.state.tip)/100));
+        let grand_total = parseFloat(this.state.meal_subtotal) + ((parseFloat(this.state.meal_subtotal)) * (parseFloat(this.state.tax)/100)) + ((parseFloat(this.state.meal_subtotal)) * (parseFloat(this.state.tip)/100));
         return (
             <div className='details'>
                 <div className='order-total'>
                     <form>
                         <label htmlFor='meal'>Meal subtotal: ($)</label><br></br>
-                        <input name='meal' placeholder={this.state.meal_total} onChange={this.handleMealChange}></input><br></br>
+                        <input name='meal' placeholder={this.state.meal_subtotal} onChange={this.handleMealChange}></input><br></br>
                         <label htmlFor='meal'>Shared items: ($)</label><br></br>
                         <input name='meal' placeholder={this.state.shared_items} onChange={this.handleSharedItemsChange}></input><br></br>
                         <label htmlFor='tax'>Tax: (%)</label><br></br>
@@ -116,6 +129,8 @@ class Details extends React.Component {
                         <input name='tip' placeholder={this.state.tip} onChange={this.handleTipChange}></input><br></br>
                         <label htmlFor='total'>Grand Total: ($)</label><br></br>
                         <input name='total' value={grand_total.toFixed(2)} readOnly></input><br></br>
+                        <label htmlFor='total'># of Diners: </label><br></br>
+                        <input name='total' placeholder={this.state.diners} onChange={this.handleDinersChange}></input><br></br>
                     </form>
                 </div>
                 <PersonList persons={this.state.persons} />
@@ -133,6 +148,7 @@ class Person extends React.Component {
             person_tip: props.person_tip,
             person_meal_subtotal: 0,
             shared_items: props.shared_items,
+            diners: props.diners
         }
     }
 
@@ -143,12 +159,12 @@ class Person extends React.Component {
     };
     
     render() {
-        let person_total = parseFloat(this.state.person_meal_subtotal) + parseFloat(this.props.shared_items) + ((parseFloat(this.state.person_meal_subtotal)) * (parseFloat(this.state.person_tax)/100)) + ((parseFloat(this.state.person_meal_subtotal)) * (parseFloat(this.state.person_tip)/100));
-        let shared_items = this.state.shared_items / this.props.counter;
+        let shared_total = parseFloat(this.state.shared_items) / this.state.diners +  (parseFloat(this.state.shared_items) / this.state.diners * (this.state.person_tax/100)) + (parseFloat(this.state.shared_items) / this.state.diners * (this.state.person_tip/100))
+        let person_total = parseFloat(this.state.person_meal_subtotal) + shared_total + ((parseFloat(this.state.person_meal_subtotal)) * (parseFloat(this.state.person_tax)/100)) + ((parseFloat(this.state.person_meal_subtotal)) * (parseFloat(this.state.person_tip)/100));
         return (
             <div className='person'>
                 <div className='total-details'>
-                    <h3>Person {this.props.number} </h3>
+                    <h3>Person {this.props.counter} </h3>
                     <form>
                         <label htmlFor='person-meal'>Personal Subtotal: $ </label>
                         <input name='person-meal' value={this.state.person_meal_subtotal} onChange={this.handlePersonSubtotal}></input>
@@ -157,7 +173,7 @@ class Person extends React.Component {
                 <div className='breakdown'>
                     <h3>Should Pay</h3>
                     <div className='person-details'>
-                        <p>Shared: ${(parseFloat(shared_items)).toFixed(2)}</p><br></br>
+                        <p>Shared: ${shared_total.toFixed(2)}</p><br></br>
                         <p>Tax: ${((parseFloat(this.state.person_tax)/100) * parseFloat(this.state.person_meal_subtotal)).toFixed(2)}</p><br></br>
                         <p>Tip: ${((parseFloat(this.state.person_tip)/100) * parseFloat(this.state.person_meal_subtotal)).toFixed(2)}</p><br></br>
                         <p>Total: ${person_total.toFixed(2)}</p>
