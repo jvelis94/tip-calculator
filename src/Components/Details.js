@@ -14,6 +14,7 @@ class Details extends React.Component {
                 counter: 1,
                 diners: 0,
             };
+            
             this.handleClick = this.handleClick.bind(this)
             this.handleMealChange = this.handleMealChange.bind(this)
             this.handleSharedItemsChange = this.handleSharedItemsChange.bind(this)
