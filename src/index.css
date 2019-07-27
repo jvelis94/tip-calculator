@@ -111,7 +111,29 @@ button {
 .breakdown h3 {
   text-align: center;
   font-size: 16px;
+}
 
+.tooltip {
+  position: relative;
+}
+
+.tooltiptext {
+  visibility: hidden;
+  position: absolute;
+  z-index: 1;
+  font-size: 8px;
+  bottom: 100%;
+  left: 50%;
+  font-weight: bold;
+  width: 75px;
+  background-color: #0066FF;
+  color: #ffffff;
+  text-align: center;
+  border-radius: 5px;
+}
+
+.tooltip:hover .tooltiptext {
+  visibility: visible;
 }
 
 @media (max-width: 1000px) {

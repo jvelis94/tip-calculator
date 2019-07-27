@@ -4,11 +4,7 @@ class Person extends React.Component {
     constructor(props) {
         super(props);
         this.state = {
-            person_tax: props.person_tax,
-            person_tip: props.person_tip,
             person_meal_subtotal: 0,
-            shared_items: props.shared_items,
-            diners: props.diners
         }
     }
 
@@ -19,8 +15,8 @@ class Person extends React.Component {
     };
     
     render() {
-        let shared_total = parseFloat(this.state.shared_items) / this.state.diners +  (parseFloat(this.state.shared_items) / this.state.diners * (this.state.person_tax/100)) + (parseFloat(this.state.shared_items) / this.state.diners * (this.state.person_tip/100))
-        let person_total = parseFloat(this.state.person_meal_subtotal) + shared_total + ((parseFloat(this.state.person_meal_subtotal)) * (parseFloat(this.state.person_tax)/100)) + ((parseFloat(this.state.person_meal_subtotal)) * (parseFloat(this.state.person_tip)/100));
+        let shared_total = parseFloat(this.props.shared_items) / this.props.diners +  (parseFloat(this.props.shared_items) / this.props.diners * (this.props.tax/100)) + (parseFloat(this.props.shared_items) / this.props.diners * (this.props.tip/100))
+        let person_total = parseFloat(this.state.person_meal_subtotal) + shared_total + ((parseFloat(this.state.person_meal_subtotal)) * (parseFloat(this.props.tax)/100)) + ((parseFloat(this.state.person_meal_subtotal)) * (parseFloat(this.props.tip)/100));
         return (
             <div className='person'>
                 <div className='total-details'>
@@ -33,9 +29,9 @@ class Person extends React.Component {
                 <div className='breakdown'>
                     <h3>Should Pay</h3>
                     <div className='person-details'>
-                        <p>Shared: ${shared_total.toFixed(2)}</p><br></br>
-                        <p>Tax: ${((parseFloat(this.state.person_tax)/100) * parseFloat(this.state.person_meal_subtotal)).toFixed(2)}</p><br></br>
-                        <p>Tip: ${((parseFloat(this.state.person_tip)/100) * parseFloat(this.state.person_meal_subtotal)).toFixed(2)}</p><br></br>
+                        <p class='tooltip'>Shared: ${shared_total.toFixed(2)}<span class='tooltiptext'>tax is included in this amount</span></p><br></br>
+                        <p>Tax: ${((parseFloat(this.props.tax)/100) * parseFloat(this.state.person_meal_subtotal)).toFixed(2)}</p><br></br>
+                        <p>Tip: ${((parseFloat(this.props.tip)/100) * parseFloat(this.state.person_meal_subtotal)).toFixed(2)}</p><br></br>
                         <p>Total: ${person_total.toFixed(2)}</p>
                     </div>
                 </div>    
