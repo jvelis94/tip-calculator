@@ -13,6 +13,8 @@ class Person extends React.Component {
             person_meal_subtotal: event.target.value
         });
     };
+
+    
     
     render() {
         let shared_total = parseFloat(this.props.shared_items) / this.props.diners +  (parseFloat(this.props.shared_items) / this.props.diners * (this.props.tax/100)) + (parseFloat(this.props.shared_items) / this.props.diners * (this.props.tip/100))
