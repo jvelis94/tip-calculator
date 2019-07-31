@@ -11,6 +11,7 @@ class Details extends React.Component {
                 tax: 0,
                 tip: 0,
                 counter: 0,
+                person_num: []
             };
         
     }
@@ -28,8 +29,10 @@ class Details extends React.Component {
             alert('Please fill the above form before continuing');
         } else {
         let counter = this.state.counter + 1
+        let addPerson = this.state.person_num.concat(counter)
         this.setState({
             counter: counter,
+            person_num: addPerson
         });}
     }
 
@@ -40,12 +43,13 @@ class Details extends React.Component {
                 tip = {this.state.tip}
                 shared_items = {this.state.shared_items}
                 counter = {this.state.counter}
+            
             />
         )
     }
 
     render() {
-        const {counter, tax, tip, shared_items} = this.state
+        const {counter, tax, tip, shared_items, person_num} = this.state
         let persons = []
         let i = 0;
         while (i < counter) {
@@ -55,6 +59,7 @@ class Details extends React.Component {
                 tip = {tip}
                 shared_items = {shared_items}
                 diners = {counter}
+                person_num = {person_num[i]}
             />)
             i++
         }
