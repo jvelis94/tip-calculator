@@ -1,5 +1,5 @@
 import React from 'react';
-import {Person, PersonList} from './Person.js'
+import {Person} from './Person.js'
 import AddPerson from './AddPersonBtn.js'
 
 class Details extends React.Component {
@@ -14,41 +14,14 @@ class Details extends React.Component {
                 counter: 1,
                 diners: 0,
             };
-            
-            this.handleClick = this.handleClick.bind(this)
-            this.handleMealChange = this.handleMealChange.bind(this)
-            this.handleSharedItemsChange = this.handleSharedItemsChange.bind(this)
-            this.handleTaxChange = this.handleTaxChange.bind(this)
-            this.handleTipChange = this.handleTipChange.bind(this)
+        
     }
 
-    handleMealChange = event => {
+    handleInputChange = event => {
+        const target_value = event.target.value
+        const name = event.target.name
         this.setState({
-            meal_subtotal: event.target.value,
-        });
-    };
-
-    handleDinersChange = event => {
-        this.setState({
-            diners: event.target.value,
-        });
-    };
-
-    handleSharedItemsChange = event => {
-        this.setState({
-            shared_items: event.target.value,
-        });
-    };
-
-    handleTaxChange = event => {
-        this.setState({
-            tax: event.target.value,
-        });
-    };
-
-    handleTipChange = event => {
-        this.setState({
-            tip: event.target.value,
+            [name]: target_value
         });
     };
 
@@ -91,21 +64,25 @@ class Details extends React.Component {
             <div className='details'>
                 <div className='order-total'>
                     <form>
-                        <label htmlFor='meal'>Meal subtotal: ($)</label><br></br>
-                        <input name='meal' placeholder={this.state.meal_subtotal} onChange={this.handleMealChange}></input><br></br>
-                        <label htmlFor='meal'>Shared items: ($)</label><br></br>
-                        <input name='meal' placeholder={this.state.shared_items} onChange={this.handleSharedItemsChange}></input><br></br>
+                        <label htmlFor='meal_subtotal'>Meal subtotal: ($)</label><br></br>
+                        <input name='meal_subtotal' placeholder={this.state.meal_subtotal} onChange={this.handleInputChange}></input><br></br>
+                        <label htmlFor='shared_items'>Shared items: ($)</label><br></br>
+                        <input name='shared_items' placeholder={this.state.shared_items} onChange={this.handleInputChange}></input><br></br>
                         <label htmlFor='tax'>Tax: (%)</label><br></br>
-                        <input name='tax' placeholder={this.state.tax} onChange={this.handleTaxChange}></input><br></br>
+                        <input name='tax' placeholder={this.state.tax} onChange={this.handleInputChange}></input><br></br>
                         <label htmlFor='tip'>Tip: (%)</label><br></br>
-                        <input name='tip' placeholder={this.state.tip} onChange={this.handleTipChange}></input><br></br>
+                        <input name='tip' placeholder={this.state.tip} onChange={this.handleInputChange}></input><br></br>
                         <label htmlFor='total'>Grand Total: ($)</label><br></br>
                         <input name='total' value={grand_total.toFixed(2)} readOnly></input><br></br>
-                        <label htmlFor='total'># of Diners: </label><br></br>
-                        <input name='total' placeholder={this.state.diners} onChange={this.handleDinersChange}></input><br></br>
+                        <label htmlFor='diners'># of Diners: </label><br></br>
+                        <input name='diners' placeholder={this.state.diners} onChange={this.handleInputChange}></input><br></br>
                     </form>
                 </div>
-                <PersonList persons={this.state.persons} />
+
+                {/* list of persons */}
+                {this.state.persons.map((person, index) => (
+                    <span key={index}>{person}</span>
+                ))}
                 {this.renderAddPerson()}
             </div>
         );

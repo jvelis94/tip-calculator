@@ -31,7 +31,7 @@ class Person extends React.Component {
                 <div className='breakdown'>
                     <h3>Should Pay</h3>
                     <div className='person-details'>
-                        <p class='tooltip'>Shared: ${shared_total.toFixed(2)}<span class='tooltiptext'>tax is included in this amount</span></p><br></br>
+                        <p className='tooltip'>Shared: ${shared_total.toFixed(2)}<span className='tooltiptext'>tax is included in this amount</span></p><br></br>
                         <p>Tax: ${((parseFloat(this.props.tax)/100) * parseFloat(this.state.person_meal_subtotal)).toFixed(2)}</p><br></br>
                         <p>Tip: ${((parseFloat(this.props.tip)/100) * parseFloat(this.state.person_meal_subtotal)).toFixed(2)}</p><br></br>
                         <p>Total: ${person_total.toFixed(2)}</p>
@@ -42,14 +42,4 @@ class Person extends React.Component {
     }
 }
 
-function PersonList(props) {
-    return (
-        <div>
-        {props.persons.map((person, index) => (
-            <span key={index}>{person}</span>
-        ))}
-        </div>
-    );
-};
-
-export {Person, PersonList}
+export {Person}
