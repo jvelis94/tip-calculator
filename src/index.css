@@ -136,6 +136,17 @@ button {
   visibility: visible;
 }
 
+#qty-label {
+  margin-left: 20px;
+}
+
+#qty-input  {
+  width: 25px;
+}
+
+
+
+
 @media (max-width: 1000px) {
   .person {
     display: block;
@@ -156,7 +167,11 @@ button {
     padding-bottom: 20px;
   }
 
-  .total-details h3, form, input {
+  .total-details h3, form, input, button {
+    text-align: center;
+  }
+
+  .button-subtotal {
     text-align: center;
   }
 }
