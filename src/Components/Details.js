@@ -77,7 +77,7 @@ class Details extends React.Component {
                         <input name='tax' placeholder={this.state.tax} onChange={this.handleInputChange}></input><br></br>
                         <label htmlFor='tip'>Tip: (%)</label><br></br>
                         <input name='tip' placeholder={this.state.tip} onChange={this.handleInputChange}></input><br></br>
-                        <label htmlFor='total'>Grand Total: ($)</label><br></br>
+                        <label htmlFor='total'>Grand total: ($)</label><br></br>
                         <input name='total' value={grand_total.toFixed(2)} readOnly></input><br></br>
                     </form>
                 </div>
