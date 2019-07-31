@@ -1,6 +1,6 @@
 import React from 'react';
 import {Person} from './Person.js'
-import AddPerson from './AddPersonBtn.js'
+import AddPersonBtn from './AddPersonBtn.js'
 
 class Details extends React.Component {
     constructor(props) {
@@ -10,9 +10,7 @@ class Details extends React.Component {
                 shared_items: 0,
                 tax: 0,
                 tip: 0,
-                persons: [],
-                counter: 1,
-                diners: 0,
+                counter: 0,
             };
         
     }
@@ -30,11 +28,8 @@ class Details extends React.Component {
             alert('Please fill the above form before continuing');
         } else {
         let counter = this.state.counter + 1
-        let addPerson = this.state.persons.concat(this.renderPerson())
         this.setState({
-            persons: addPerson,
             counter: counter,
-
         });}
     }
 
@@ -45,20 +40,25 @@ class Details extends React.Component {
                 tip = {this.state.tip}
                 shared_items = {this.state.shared_items}
                 counter = {this.state.counter}
-                diners = {this.state.diners}
             />
         )
     }
 
-    renderAddPerson = () => {
-        return (
-            <AddPerson 
-                onClicked= {() => this.handleClick()}    
-                />
-        );
-    }
-
     render() {
+        const {counter, tax, tip, shared_items} = this.state
+        let persons = []
+        let i = 0;
+        while (i < counter) {
+            persons.push(
+            <Person
+                tax = {tax}
+                tip = {tip}
+                shared_items = {shared_items}
+                diners = {counter}
+            />)
+            i++
+        }
+        
         let grand_total = parseFloat(this.state.meal_subtotal) + ((parseFloat(this.state.meal_subtotal)) * (parseFloat(this.state.tax)/100)) + ((parseFloat(this.state.meal_subtotal)) * (parseFloat(this.state.tip)/100));
         return (
             <div className='details'>
@@ -74,16 +74,11 @@ class Details extends React.Component {
                         <input name='tip' placeholder={this.state.tip} onChange={this.handleInputChange}></input><br></br>
                         <label htmlFor='total'>Grand Total: ($)</label><br></br>
                         <input name='total' value={grand_total.toFixed(2)} readOnly></input><br></br>
-                        <label htmlFor='diners'># of Diners: </label><br></br>
-                        <input name='diners' placeholder={this.state.diners} onChange={this.handleInputChange}></input><br></br>
                     </form>
                 </div>
+                {persons}
+                <AddPersonBtn handleClick={this.handleClick} />
 
-                {/* list of persons */}
-                {this.state.persons.map((person, index) => (
-                    <span key={index}>{person}</span>
-                ))}
-                {this.renderAddPerson()}
             </div>
         );
     }

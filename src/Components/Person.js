@@ -22,7 +22,7 @@ class Person extends React.Component {
         return (
             <div className='person'>
                 <div className='total-details'>
-                    <h3>Person {this.props.counter} </h3>
+                    <h3>Person {this.props.diners} </h3>
                     <form>
                         <label htmlFor='person-meal'>Personal Subtotal: $ </label>
                         <input name='person-meal' value={this.state.person_meal_subtotal} onChange={this.handlePersonSubtotal}></input>

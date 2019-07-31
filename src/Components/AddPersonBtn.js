@@ -2,12 +2,12 @@ import React from 'react';
 
 
 
-function AddPerson(props) {
+function AddPersonBtn(props) {
     return (
         <div className='button'>
-            <button className='addPerson' onClick={props.onClicked}>Add Person</button>
+            <button className='addPerson' onClick={props.handleClick}>Add Person</button>
         </div>
     );
 }
 
-export default AddPerson
+export default AddPersonBtn
