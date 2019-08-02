@@ -2,14 +2,77 @@ import React from 'react';
 import {Person} from './Person.js'
 import AddPersonBtn from './AddPersonBtn.js'
 
+function MealSub(props) {
+    return (
+        <form>
+            <label htmlFor='meal_subtotal'>Meal subtotal: ($)</label><br></br>
+            <input name='meal_subtotal' placeholder={props.meal_subtotal} onChange={props.handleInputChange}></input><br></br>
+            <button onClick = {props.handleSubmitShared}>Next</button>
+        </form>
+        )
+}
+
+function SharedItems(props) {
+    return (
+        <form>
+            <label htmlFor='shared_items'>Shared items: ($)</label><br></br>
+            <input name='shared_items' placeholder={props.shared_items} onChange={props.handleInputChange}></input><br></br>
+            <button onClick = {props.handleSubmitTax}>Next</button>
+        </form>
+    )
+}
+
+function Tax(props) {
+    return (
+        <form>    
+            <label htmlFor='tax'>Tax: (%)</label><br></br>
+            <input name='tax' placeholder={props.tax} onChange={props.handleInputChange}></input><br></br>
+            <input type='submit' value='Next'></input>
+        </form>
+    )
+}
+
+function Tip(props) {
+    return (
+        <form>
+            <label htmlFor='tip'>Tip: (%)</label><br></br>
+            <input name='tip' placeholder={props.tip} onChange={props.handleInputChange}></input><br></br>
+            <input type='submit' value='Next'></input>
+        </form>
+    )
+}
+
+function GrandTotal(props) {
+    let grand_total = parseFloat(props.meal_subtotal) + ((parseFloat(props.meal_subtotal)) * (parseFloat(props.tax)/100)) + ((parseFloat(props.meal_subtotal)) * (parseFloat(props.tip)/100));
+    return (
+        <form>
+            <label htmlFor='total'>Grand total: ($)</label><br></br>
+            <input name='total' value={grand_total.toFixed(2)} readOnly></input><br></br>
+            <input type='submit' value='Next'></input>
+        </form>
+    )
+}
+
 class Details extends React.Component {
     constructor(props) {
         super(props); 
             this.state = {
-                meal_subtotal: 0,
-                shared_items: 0,
-                tax: 0,
-                tip: 0,
+                meal_subtotal: {
+                    value: 0,
+                    display: true
+                },
+                shared_items: {
+                    value: 0,
+                    display: false
+                },
+                tax: {
+                    value: 0,
+                    display: false
+                },
+                tip: {
+                    value: 0,
+                    display: false
+                },
                 counter: 0,
                 person_num: []
             };
@@ -20,12 +83,15 @@ class Details extends React.Component {
         const target_value = event.target.value
         const name = event.target.name
         this.setState({
-            [name]: target_value
+            [name]: {
+                value: target_value,
+                display: true
+            }
         });
     };
 
-    handleClick = (event) => {
-        if (this.state.meal_subtotal === 0) {
+    handleClick = () => {
+        if (this.state.meal_subtotal.value === 0) {
             alert('Please fill the above form before continuing');
         } else {
         let counter = this.state.counter + 1
@@ -36,13 +102,35 @@ class Details extends React.Component {
         });}
     }
 
+    handleSubmitShared = (event) => {
+        event.preventDefault()
+        this.setState((currentState) => {
+            return {
+            shared_items: {
+                value: currentState.shared_items.value,
+                display: true
+            }}
+        }) 
+    }
+
+    handleSubmitTax = (event) => {
+        event.preventDefault()
+        this.setState((currentState) => {
+            return {
+            tax: {
+                value: currentState.tax.value,
+                display: true
+            }}
+        }) 
+    }
+
     renderPerson = () => {
         return (
             <Person
-                tax = {this.state.tax}
-                tip = {this.state.tip}
-                shared_items = {this.state.shared_items}
-                counter = {this.state.counter}
+                tax = {this.state.tax.value}
+                tip = {this.state.tip.value}
+                shared_items = {this.state.shared_items.value}
+                counter = {this.state.counter.value}
             
             />
         )
@@ -55,31 +143,73 @@ class Details extends React.Component {
         while (i < counter) {
             persons.push(
             <Person
-                tax = {tax}
-                tip = {tip}
-                shared_items = {shared_items}
+                tax = {tax.value}
+                tip = {tip.value}
+                shared_items = {shared_items.value}
                 diners = {counter}
                 person_num = {person_num[i]}
             />)
             i++
         }
+
+        let sharedComponent = []
+        if (this.state.shared_items.display) {
+            sharedComponent.push(
+                <SharedItems 
+                    shared_items = {this.state.shared_items.value} 
+                    handleInputChange = {this.handleInputChange}
+                    handleSubmitTax = {this.handleSubmitTax}
+                   />
+            )
+        }
+
+        let taxComponent = []
+        if (this.state.tax.display) {
+            taxComponent.push(
+                <Tax 
+                    tax = {this.state.tax.value} 
+                    handleInputChange = {this.handleInputChange}
+                    />
+            )
+        } 
         
-        let grand_total = parseFloat(this.state.meal_subtotal) + ((parseFloat(this.state.meal_subtotal)) * (parseFloat(this.state.tax)/100)) + ((parseFloat(this.state.meal_subtotal)) * (parseFloat(this.state.tip)/100));
+        let tipComponent = []
+        if (this.state.tip.display) {
+            tipComponent.push(
+                <Tax 
+                    tip = {this.state.tip.value} 
+                    handleInputChange = {this.handleInputChange}
+                    />
+            )
+        } 
+
+        let grandTotalComponent = []
+        if (this.state.tax.display) {
+            grandTotalComponent.push(
+                <GrandTotal 
+                    tip = {this.state.tip.value}
+                    tax = {this.state.tax.value}
+                    meal_subtotal = {this.state.meal_subtotal.value}
+                    shared_items = {this.state.shared_items.value}
+                    handleInputChange = {this.handleInputChange}
+                    />  
+            )
+        } 
+        
+        
+        
         return (
             <div className='details'>
                 <div className='order-total'>
-                    <form>
-                        <label htmlFor='meal_subtotal'>Meal subtotal: ($)</label><br></br>
-                        <input name='meal_subtotal' placeholder={this.state.meal_subtotal} onChange={this.handleInputChange}></input><br></br>
-                        <label htmlFor='shared_items'>Shared items: ($)</label><br></br>
-                        <input name='shared_items' placeholder={this.state.shared_items} onChange={this.handleInputChange}></input><br></br>
-                        <label htmlFor='tax'>Tax: (%)</label><br></br>
-                        <input name='tax' placeholder={this.state.tax} onChange={this.handleInputChange}></input><br></br>
-                        <label htmlFor='tip'>Tip: (%)</label><br></br>
-                        <input name='tip' placeholder={this.state.tip} onChange={this.handleInputChange}></input><br></br>
-                        <label htmlFor='total'>Grand total: ($)</label><br></br>
-                        <input name='total' value={grand_total.toFixed(2)} readOnly></input><br></br>
-                    </form>
+                  <MealSub 
+                    meal_subtotal = {this.state.meal_subtotal.value}
+                    handleInputChange = {this.handleInputChange}
+                    handleSubmitShared = {this.handleSubmitShared}
+                    />
+                  {sharedComponent}
+                  {taxComponent}
+                  {tipComponent}
+                  {grandTotalComponent}      
                 </div>
                 {persons}
                 <AddPersonBtn handleClick={this.handleClick} />
