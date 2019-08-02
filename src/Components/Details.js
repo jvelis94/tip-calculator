@@ -1,6 +1,65 @@
 import React from 'react';
 import {Person} from './Person.js'
 import AddPersonBtn from './AddPersonBtn.js'
+import {
+    BrowserRouter,
+    Route,
+    Link,
+  } from 'react-router-dom'
+
+function MealSub(props) {
+    return (
+        <form>
+            <label htmlFor='meal_subtotal'>Meal subtotal: ($)</label><br></br>
+            <input name='meal_subtotal' placeholder={props.meal_subtotal} onChange={props.handleInputChange}></input><br></br>
+            <Link to='/shared_items'>Next</Link>
+        </form>
+        )
+}
+
+function SharedItems(props) {
+    return (
+        <form>
+            <label htmlFor='shared_items'>Shared items: ($)</label><br></br>
+            <input name='shared_items' placeholder={props.shared_items} onChange={props.handleInputChange}></input><br></br>
+            <Link to='/'>Back</Link>
+            <Link to='/tax'>Next</Link>
+        </form>
+    )
+}
+
+function Tax(props) {
+    return (
+        <form>    
+            <label htmlFor='tax'>Tax: (%)</label><br></br>
+            <input name='tax' placeholder={props.tax} onChange={props.handleInputChange}></input><br></br>
+            <Link to='/shared_items'>Back</Link>
+            <Link to='/tip'>Next</Link>
+        </form>
+    )
+}
+
+function Tip(props) {
+    return (
+        <form>
+            <label htmlFor='tip'>Tip: (%)</label><br></br>
+            <input name='tip' placeholder={props.tip} onChange={props.handleInputChange}></input><br></br>
+            <Link to='/tax'>Back</Link>
+            <Link to='/grand_total'>Next</Link>
+        </form>
+    )
+}
+
+function GrandTotal(props) {
+    let grand_total = parseFloat(props.meal_subtotal) + ((parseFloat(props.meal_subtotal)) * (parseFloat(props.tax)/100)) + ((parseFloat(props.meal_subtotal)) * (parseFloat(props.tip)/100));
+    return (
+        <form>
+            <label htmlFor='total'>Grand total: ($)</label><br></br>
+            <input name='total' value={grand_total.toFixed(2)} readOnly></input><br></br>
+            <Link to='/tip'>Back</Link>
+        </form>
+    )
+}
 
 class Details extends React.Component {
     constructor(props) {
@@ -36,18 +95,6 @@ class Details extends React.Component {
         });}
     }
 
-    renderPerson = () => {
-        return (
-            <Person
-                tax = {this.state.tax}
-                tip = {this.state.tip}
-                shared_items = {this.state.shared_items}
-                counter = {this.state.counter}
-            
-            />
-        )
-    }
-
     render() {
         const {counter, tax, tip, shared_items, person_num} = this.state
         let persons = []
@@ -64,29 +111,70 @@ class Details extends React.Component {
             i++
         }
         
-        let grand_total = parseFloat(this.state.meal_subtotal) + ((parseFloat(this.state.meal_subtotal)) * (parseFloat(this.state.tax)/100)) + ((parseFloat(this.state.meal_subtotal)) * (parseFloat(this.state.tip)/100));
+        
         return (
-            <div className='details'>
-                <div className='order-total'>
-                    <form>
-                        <label htmlFor='meal_subtotal'>Meal subtotal: ($)</label><br></br>
-                        <input name='meal_subtotal' placeholder={this.state.meal_subtotal} onChange={this.handleInputChange}></input><br></br>
-                        <label htmlFor='shared_items'>Shared items: ($)</label><br></br>
-                        <input name='shared_items' placeholder={this.state.shared_items} onChange={this.handleInputChange}></input><br></br>
-                        <label htmlFor='tax'>Tax: (%)</label><br></br>
-                        <input name='tax' placeholder={this.state.tax} onChange={this.handleInputChange}></input><br></br>
-                        <label htmlFor='tip'>Tip: (%)</label><br></br>
-                        <input name='tip' placeholder={this.state.tip} onChange={this.handleInputChange}></input><br></br>
-                        <label htmlFor='total'>Grand total: ($)</label><br></br>
-                        <input name='total' value={grand_total.toFixed(2)} readOnly></input><br></br>
-                    </form>
-                </div>
-                {persons}
-                <AddPersonBtn handleClick={this.handleClick} />
+            <BrowserRouter>
+                <div className='details'>
+                    <div className='order-total'>
+                    
+                    <Route exact path='/' render={() => {
+                        return (
+                            <MealSub 
+                                meal_subtotal = {this.state.meal_subtotal}
+                                handleInputChange = {this.handleInputChange}
+                            />
+                        )
+                    }} />
+            
 
-            </div>
+                    <Route path='/shared_items' render={() => {
+                        return (
+                            <SharedItems 
+                                shared_items = {this.state.shared_items} 
+                                handleInputChange = {this.handleInputChange}
+                            />
+                        )
+                    }} />
+            
+                    <Route path='/tax' render={() => {
+                        return (
+                            <Tax 
+                                tax = {this.state.tax} 
+                                handleInputChange = {this.handleInputChange}
+                            />
+                        )
+                    }} />
+            
+                    <Route path='/tip' render={() => {
+                        return (
+                            <Tip 
+                                tip = {this.state.tip} 
+                                handleInputChange = {this.handleInputChange}
+                            />
+                        )
+                    }} />
+            
+                    <Route path='/grand_total' render={() => {
+                        return (
+                            <GrandTotal 
+                                tip = {this.state.tip}
+                                tax = {this.state.tax}
+                                meal_subtotal = {this.state.meal_subtotal}
+                                shared_items = {this.state.shared_items}
+                                handleInputChange = {this.handleInputChange}
+                            /> 
+                        )
+                    }} />
+
+                    </div>
+                    {persons}
+                    <AddPersonBtn handleClick={this.handleClick} />
+
+                </div>
+            </BrowserRouter>
         );
     }
 }
 
-export default Details
+export { MealSub, SharedItems, Tax, Tip, GrandTotal, Details }
+ 

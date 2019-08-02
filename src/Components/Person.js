@@ -65,12 +65,12 @@ class Person extends React.Component {
                     <br/>
                     <div className='button-subtotal'>
                         <button onClick = {this.handleAddItemBtn}>Save Item</button>
-                        <p>Subtotal: ${this.state.items_totals_sum}</p><br></br>
                     </div>
                 </div>
                 <div className='breakdown'>
-                    <h3>Should pay</h3>
+                <h2>Should pay</h2>
                     <div className='person-details'>
+                        <p>Subtotal: ${this.state.items_totals_sum}</p><br></br>
                         <p className='tooltip'>Shared: ${shared_total.toFixed(2)}<span className='tooltiptext'>tax is included in this amount</span></p><br></br>
                         <p>Tax: ${((parseFloat(this.props.tax)/100) * parseFloat(this.state.items_totals_sum)).toFixed(2)}</p><br></br>
                         <p>Tip: ${((parseFloat(this.props.tip)/100) * parseFloat(this.state.items_totals_sum)).toFixed(2)}</p><br></br>
