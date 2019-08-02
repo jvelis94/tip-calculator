@@ -176,7 +176,7 @@ class Details extends React.Component {
         let tipComponent = []
         if (this.state.tip.display) {
             tipComponent.push(
-                <Tax 
+                <Tip 
                     tip = {this.state.tip.value} 
                     handleInputChange = {this.handleInputChange}
                     />
