@@ -29,9 +29,9 @@ header {
 }
 
 .order-total form {
-  display: inline-block;
-  margin: 0 auto;
-  text-align: left;
+  /* display: inline-block;
+  margin: 0 auto; */
+  text-align: center;
   font-weight: bold;
 }
 
@@ -47,6 +47,7 @@ header {
   background-color: #ffffff;
   border-radius: 5px;
   border: 0.5px solid #ffffff;
+  text-align: center;
 }
 
 .person {
@@ -144,6 +145,10 @@ button {
   width: 25px;
 }
 
+.links {
+  display: flex;
+  justify-content: space-between;
+}
 
 
 

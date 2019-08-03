@@ -10,9 +10,11 @@ import {
 function MealSub(props) {
     return (
         <form>
-            <label htmlFor='meal_subtotal'>Meal subtotal: ($)</label><br></br>
-            <input name='meal_subtotal' placeholder={props.meal_subtotal} onChange={props.handleInputChange}></input><br></br>
-            <Link to='/shared_items'>Next</Link>
+            <label htmlFor='meal_subtotal'>What was the bill subtotal (before tax and tip)?</label><br></br>
+            <input name='meal_subtotal' placeholder={`$${props.meal_subtotal}`} onChange={`$${props.handleInputChange}`}></input><br></br>
+            <div className='links'>
+                <Link to='/shared_items'>Next</Link>
+            </div>
         </form>
         )
 }
@@ -20,10 +22,12 @@ function MealSub(props) {
 function SharedItems(props) {
     return (
         <form>
-            <label htmlFor='shared_items'>Shared items: ($)</label><br></br>
-            <input name='shared_items' placeholder={props.shared_items} onChange={props.handleInputChange}></input><br></br>
-            <Link to='/'>Back</Link>
-            <Link to='/tax'>Next</Link>
+            <label htmlFor='shared_items'>If you shared any items, what was total of all those items?</label><br></br>
+            <input name='shared_items' placeholder={`$${props.shared_items}`} onChange={`$${props.handleInputChange}`}></input><br></br>
+            <div className='links'>
+                <Link to='/'>Back</Link>
+                <Link to='/tax'>Next</Link>
+            </div>
         </form>
     )
 }
@@ -33,8 +37,10 @@ function Tax(props) {
         <form>    
             <label htmlFor='tax'>Tax: (%)</label><br></br>
             <input name='tax' placeholder={props.tax} onChange={props.handleInputChange}></input><br></br>
-            <Link to='/shared_items'>Back</Link>
-            <Link to='/tip'>Next</Link>
+            <div className='links'>
+                <Link to='/shared_items'>Back</Link>
+                <Link to='/tip'>Next</Link>
+            </div>
         </form>
     )
 }
@@ -42,10 +48,12 @@ function Tax(props) {
 function Tip(props) {
     return (
         <form>
-            <label htmlFor='tip'>Tip: (%)</label><br></br>
-            <input name='tip' placeholder={props.tip} onChange={props.handleInputChange}></input><br></br>
-            <Link to='/tax'>Back</Link>
-            <Link to='/grand_total'>Next</Link>
+            <label htmlFor='tip'>How much are you tipping your server?</label><br></br>
+            <input name='tip' placeholder={`%${props.tip}`} onChange={`%${props.handleInputChange}`}></input><br></br>
+            <div className='links'>
+                <Link to='/tax'>Back</Link>
+                <Link to='/grand_total'>Next</Link>
+            </div>
         </form>
     )
 }
@@ -54,10 +62,13 @@ function GrandTotal(props) {
     let grand_total = parseFloat(props.meal_subtotal) + ((parseFloat(props.meal_subtotal)) * (parseFloat(props.tax)/100)) + ((parseFloat(props.meal_subtotal)) * (parseFloat(props.tip)/100));
     return (
         <form>
-            <label htmlFor='total'>Grand total: ($)</label><br></br>
-            <input name='total' value={grand_total.toFixed(2)} readOnly></input><br></br>
-            <Link to='/tip'>Back</Link>
-            <Link to='/person/1'>Add People</Link>
+            <label htmlFor='total'>The table's grand total is:</label><br></br>
+            <input name='total' value={`$${grand_total.toFixed(2)}`} readOnly></input><br></br>
+            Now lets add some people now<br/>
+            <div className='links'>
+                <Link to='/tip'>Back</Link>
+                <Link to='/person/1'>Add People</Link>
+            </div>
         </form>
     )
 }
@@ -122,7 +133,6 @@ class Details extends React.Component {
             <BrowserRouter>
                 <div className='details'>
                     <div className='order-total'>
-                    
                     <Route exact path='/' render={() => {
                         return (
                             <MealSub 
