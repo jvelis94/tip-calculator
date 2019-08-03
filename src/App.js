@@ -1,6 +1,6 @@
 import React from 'react';
 import './App.css';
-import { MealSub, SharedItems, Tax, Tip, GrandTotal, Details } from './Components/Details'
+import { Details } from './Components/Details'
 
 
 

@@ -57,6 +57,7 @@ function GrandTotal(props) {
             <label htmlFor='total'>Grand total: ($)</label><br></br>
             <input name='total' value={grand_total.toFixed(2)} readOnly></input><br></br>
             <Link to='/tip'>Back</Link>
+            <Link to='/person/1'>Add People</Link>
         </form>
     )
 }
@@ -69,7 +70,7 @@ class Details extends React.Component {
                 shared_items: 0,
                 tax: 0,
                 tip: 0,
-                counter: 0,
+                counter: 1,
                 person_num: []
             };
         
@@ -84,34 +85,39 @@ class Details extends React.Component {
     };
 
     handleClick = (event) => {
-        if (this.state.meal_subtotal === 0) {
-            alert('Please fill the above form before continuing');
-        } else {
         let counter = this.state.counter + 1
         let addPerson = this.state.person_num.concat(counter)
         this.setState({
             counter: counter,
             person_num: addPerson
-        });}
+        });
     }
 
     render() {
         const {counter, tax, tip, shared_items, person_num} = this.state
         let persons = []
-        let i = 0;
+        let links = []
+        let i = 1;
         while (i < counter) {
             persons.push(
-            <Person
-                tax = {tax}
-                tip = {tip}
-                shared_items = {shared_items}
-                diners = {counter}
-                person_num = {person_num[i]}
-            />)
+                        <Person
+                            tax = {tax}
+                            tip = {tip}
+                            shared_items = {shared_items}
+                            diners = {counter}
+                            person_num = {person_num[i]}
+                        />
+                    )
+            
+            links.push(<Link to={`/person/${i}`}>{`Person ${i}`}</Link>)
             i++
         }
         
-        
+        let addPersonBtn = []
+        if (i >= 1) { 
+            addPersonBtn.push(<AddPersonBtn handleClick={this.handleClick} /> )
+        }
+
         return (
             <BrowserRouter>
                 <div className='details'>
@@ -167,9 +173,24 @@ class Details extends React.Component {
                     }} />
 
                     </div>
-                    {persons}
-                    <AddPersonBtn handleClick={this.handleClick} />
 
+                    <Route exact path = {`/person/1`} render={() => {
+                        return (
+                            <div>
+                                {addPersonBtn}
+                                <Person
+                                    tax = {tax}
+                                    tip = {tip}
+                                    shared_items = {shared_items}
+                                    diners = {counter}
+                                    person_num = {person_num[i]}
+                                />
+                                
+                            </div>
+                        )
+                    }}/>
+                    {persons}
+                    {/* {links} */}
                 </div>
             </BrowserRouter>
         );
