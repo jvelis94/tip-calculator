@@ -10,9 +10,9 @@ import {
 function MealSub(props) {
     return (
         <form>
-            <label htmlFor='meal_subtotal'>What was the bill subtotal (before tax and tip)?</label><br></br>
+            <label htmlFor='meal_subtotal'>What was the bill total <small>(before tax and tip)?</small></label><br></br>
             <input name='meal_subtotal' placeholder={`$${props.meal_subtotal}`} onChange={`$${props.handleInputChange}`}></input><br></br>
-            <div className='links'>
+            <div className='links' style={{float: 'right'}}>
                 <Link to='/shared_items'>Next</Link>
             </div>
         </form>
@@ -64,7 +64,7 @@ function GrandTotal(props) {
         <form>
             <label htmlFor='total'>The table's grand total is:</label><br></br>
             <input name='total' value={`$${grand_total.toFixed(2)}`} readOnly></input><br></br>
-            Now lets add some people now<br/>
+            <section style={{marginBottom: '20px'}}>Now lets add people to split this with</section>
             <div className='links'>
                 <Link to='/tip'>Back</Link>
                 <Link to='/person/1'>Add People</Link>
