@@ -188,7 +188,6 @@ class Details extends React.Component {
                     <Route exact path = {`/person/1`} render={() => {
                         return (
                             <div>
-                                {addPersonBtn}
                                 <Person
                                     meal_subtotal = {meal_subtotal}
                                     tax = {tax}
@@ -197,7 +196,7 @@ class Details extends React.Component {
                                     diners = {counter}
                                     person_num = {person_num[i]}
                                 />
-                                
+                                {addPersonBtn}
                             </div>
                         )
                     }}/>
