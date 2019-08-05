@@ -11,7 +11,7 @@ function MealSub(props) {
     return (
         <form>
             <label htmlFor='meal_subtotal'>What was the bill total <small>(before tax and tip)?</small></label><br></br>
-            <input name='meal_subtotal' placeholder={`$${props.meal_subtotal}`} onChange={`$${props.handleInputChange}`}></input><br></br>
+            <input name='meal_subtotal' placeholder={`$${props.meal_subtotal}`} onChange={props.handleInputChange   }></input><br></br>
             <div className='links' style={{float: 'right'}}>
                 <Link to='/shared_items'>Next</Link>
             </div>
@@ -22,8 +22,8 @@ function MealSub(props) {
 function SharedItems(props) {
     return (
         <form>
-            <label htmlFor='shared_items'>If you shared any items, what was total of all those items?</label><br></br>
-            <input name='shared_items' placeholder={`$${props.shared_items}`} onChange={`$${props.handleInputChange}`}></input><br></br>
+            <label htmlFor='shared_items'>If you shared any items, what was the total of all those items?</label><br></br>
+            <input name='shared_items' placeholder={`$${props.shared_items}`} onChange={props.handleInputChange}></input><br></br>
             <div className='links'>
                 <Link to='/'>Back</Link>
                 <Link to='/tax'>Next</Link>
@@ -35,8 +35,8 @@ function SharedItems(props) {
 function Tax(props) {
     return (
         <form>    
-            <label htmlFor='tax'>Tax: (%)</label><br></br>
-            <input name='tax' placeholder={props.tax} onChange={props.handleInputChange}></input><br></br>
+            <label htmlFor='tax'>Tax:</label><br></br>
+            <input name='tax' placeholder={`$${props.tax}`} onChange={props.handleInputChange}></input><br></br>
             <div className='links'>
                 <Link to='/shared_items'>Back</Link>
                 <Link to='/tip'>Next</Link>
@@ -49,7 +49,7 @@ function Tip(props) {
     return (
         <form>
             <label htmlFor='tip'>How much are you tipping your server?</label><br></br>
-            <input name='tip' placeholder={`%${props.tip}`} onChange={`%${props.handleInputChange}`}></input><br></br>
+            <input name='tip' placeholder={`%${props.tip}`} onChange={props.handleInputChange}></input><br></br>
             <div className='links'>
                 <Link to='/tax'>Back</Link>
                 <Link to='/grand_total'>Next</Link>
@@ -59,7 +59,7 @@ function Tip(props) {
 }
 
 function GrandTotal(props) {
-    let grand_total = parseFloat(props.meal_subtotal) + ((parseFloat(props.meal_subtotal)) * (parseFloat(props.tax)/100)) + ((parseFloat(props.meal_subtotal)) * (parseFloat(props.tip)/100));
+    let grand_total = parseFloat(props.meal_subtotal) + (parseFloat(props.tax)) + ((parseFloat(props.meal_subtotal)) * (parseFloat(props.tip)/100));
     return (
         <form>
             <label htmlFor='total'>The table's grand total is:</label><br></br>
@@ -105,13 +105,14 @@ class Details extends React.Component {
     }
 
     render() {
-        const {counter, tax, tip, shared_items, person_num} = this.state
+        const {counter, tax, tip, shared_items, person_num, meal_subtotal} = this.state
         let persons = []
         let links = []
         let i = 1;
         while (i < counter) {
             persons.push(
                         <Person
+                            meal_subtotal = {meal_subtotal}
                             tax = {tax}
                             tip = {tip}
                             shared_items = {shared_items}
@@ -189,6 +190,7 @@ class Details extends React.Component {
                             <div>
                                 {addPersonBtn}
                                 <Person
+                                    meal_subtotal = {meal_subtotal}
                                     tax = {tax}
                                     tip = {tip}
                                     shared_items = {shared_items}
