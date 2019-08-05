@@ -196,11 +196,11 @@ class Details extends React.Component {
                                     diners = {counter}
                                     person_num = {person_num[i]}
                                 />
-                                {addPersonBtn}
                             </div>
                         )
                     }}/>
                     {persons}
+                    {addPersonBtn}
                     {/* {links} */}
                 </div>
             </BrowserRouter>
