@@ -39,7 +39,8 @@ class Person extends React.Component {
     
     render() {
         let shared_total = parseFloat(this.props.shared_items) / this.props.diners +  (parseFloat(this.props.shared_items) / this.props.diners * (this.props.tax/100)) + (parseFloat(this.props.shared_items) / this.props.diners * (this.props.tip/100))
-        let person_total = parseFloat(this.state.items_totals_sum) + shared_total + ((parseFloat(this.state.items_totals_sum)) * (parseFloat(this.props.tax)/100)) + ((parseFloat(this.state.items_totals_sum)) * (parseFloat(this.props.tip)/100));
+        let person_tax = ((this.state.items_totals_sum / this.props.meal_subtotal) * this.props.tax)
+        let person_total = parseFloat(this.state.items_totals_sum) + shared_total + person_tax + ((parseFloat(this.state.items_totals_sum)) * (parseFloat(this.props.tip)/100));
         let items = []
         let i = 0
         while (i < this.state.items_counter) {
@@ -72,7 +73,7 @@ class Person extends React.Component {
                     <div className='person-details'>
                         <p>Subtotal: ${this.state.items_totals_sum}</p><br></br>
                         <p className='tooltip'>Shared: ${shared_total.toFixed(2)}<span className='tooltiptext'>tax is included in this amount</span></p><br></br>
-                        <p>Tax: ${((parseFloat(this.props.tax)/100) * parseFloat(this.state.items_totals_sum)).toFixed(2)}</p><br></br>
+                        <p>Tax: ${person_tax.toFixed(2)}</p><br></br>
                         <p>Tip: ${((parseFloat(this.props.tip)/100) * parseFloat(this.state.items_totals_sum)).toFixed(2)}</p><br></br>
                         <p>Total: ${person_total.toFixed(2)}</p>
                     </div>
