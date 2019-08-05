@@ -9,6 +9,8 @@ import {
 
 function MealSub(props) {
     return (
+        <div className='questions'>
+        <header>Split</header>
         <form>
             <label htmlFor='meal_subtotal'>What was the bill total <small>(before tax and tip)?</small></label><br></br>
             <input name='meal_subtotal' placeholder={`$${props.meal_subtotal}`} onChange={props.handleInputChange   }></input><br></br>
@@ -16,11 +18,14 @@ function MealSub(props) {
                 <button><Link to='/shared_items'>Next</Link></button>
             </div>
         </form>
+        </div>
         )
 }
 
 function SharedItems(props) {
     return (
+        <div className='questions'>
+        <header>Split</header>
         <form>
             <label htmlFor='shared_items'>If you shared any items, what was the total of all those items?</label><br></br>
             <input name='shared_items' placeholder={`$${props.shared_items}`} onChange={props.handleInputChange}></input><br></br>
@@ -29,11 +34,14 @@ function SharedItems(props) {
                 <button><Link to='/tax'>Next</Link></button>
             </div>
         </form>
+        </div>
     )
 }
 
 function Tax(props) {
     return (
+        <div className='questions'>
+        <header>Split</header>
         <form>    
             <label htmlFor='tax'>Tax:</label><br></br>
             <input name='tax' placeholder={`$${props.tax}`} onChange={props.handleInputChange}></input><br></br>
@@ -42,11 +50,14 @@ function Tax(props) {
                 <button><Link to='/tip'>Next</Link></button>
             </div>
         </form>
+        </div>
     )
 }
 
 function Tip(props) {
     return (
+        <div className='questions'>
+        <header>Split</header>
         <form>
             <label htmlFor='tip'>How much are you tipping your server?</label><br></br>
             <input name='tip' placeholder={`%${props.tip}`} onChange={props.handleInputChange}></input><br></br>
@@ -55,12 +66,15 @@ function Tip(props) {
                 <button><Link to='/grand_total'>Next</Link></button>
             </div>
         </form>
+        </div>
     )
 }
 
 function GrandTotal(props) {
     let grand_total = parseFloat(props.meal_subtotal) + (parseFloat(props.tax)) + ((parseFloat(props.meal_subtotal)) * (parseFloat(props.tip)/100));
     return (
+        <div className='questions'>
+        <header>Split</header>
         <form>
             <label htmlFor='total'>The table's grand total is:</label><br></br>
             <input name='total' value={`$${grand_total.toFixed(2)}`} readOnly></input><br></br>
@@ -70,6 +84,7 @@ function GrandTotal(props) {
                 <button><Link to='/person/1'>Add People</Link></button>
             </div>
         </form>
+        </div>
     )
 }
 

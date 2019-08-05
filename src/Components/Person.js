@@ -56,7 +56,7 @@ class Person extends React.Component {
         return (
             <div className='person'>
                 <div className='total-details'>
-                    <h3>Person {this.props.person_num} </h3>
+                    <h3>Person</h3>
                     <Items 
                         item = {this.state.item}
                         item_quantity = {this.state.item_quantity}
