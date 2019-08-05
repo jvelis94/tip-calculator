@@ -14,18 +14,38 @@ code {
   font-family: 'Raleway', sans-serif;
 }
 
+.App {
+  height: 100vh;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 90%;
+  margin: 0 auto;
+}
+
+header {
+  position: absolute;
+  top: 0;
+}
+
+
 header {
   font-size: 32px;
   font-weight: bold;
-  width: 90%;
   margin: 20px auto 40px auto;
   color: #0066FF;
+}
+
+small {
+  font-weight: normal;
 }
 
 .order-total {
   display: block;
   text-align: center;
   margin: 20px 0;
+  position: relative;
+  top: 50%;
 }
 
 .order-total form {
@@ -33,6 +53,7 @@ header {
   margin: 0 auto; */
   text-align: center;
   font-weight: bold;
+  
 }
 
 .order-total label {
@@ -40,9 +61,8 @@ header {
 }
 
 .order-total input {
-  margin-bottom: 8px;
-  margin-top: 8px;
-  height: 20px;
+  margin: 20px 0;
+  height: 25px;
   font-size: 18px;
   background-color: #ffffff;
   border-radius: 5px;
@@ -55,7 +75,6 @@ header {
   justify-content: space-around;
   border-top: .5px solid #0066FF;
   padding: 20px 0;
-  width: 90%;
   margin: 0 auto;
   font-size: 18 px;
 }
@@ -75,6 +94,7 @@ header {
   background-color: #ffffff;
   border-radius: 5px;
   border: 0.5px solid #ffffff;
+  width: 40%;
 }
 
 .button {
@@ -97,6 +117,7 @@ button {
 
 .breakdown {
   width: 450px;
+  text-align: center;
 }
 
 .person-details {
@@ -109,7 +130,7 @@ button {
   margin: 0px;
 }
 
-.breakdown h3 {
+.breakdown h2 {
   text-align: center;
   font-size: 16px;
 }
@@ -145,10 +166,15 @@ button {
   width: 25px;
 }
 
+#item {
+  width: 75px;
+}
+
 .links {
   display: flex;
   justify-content: space-between;
 }
+
 
 
 
@@ -159,7 +185,6 @@ button {
 
   .breakdown {
     margin: 0 auto;
-    width: 90%;
   }
 
   .person-details {
@@ -172,11 +197,14 @@ button {
     padding-bottom: 20px;
   }
 
-  .total-details h3, form, input, button {
+  .total-details h3, form, input {
     text-align: center;
+    margin: 0 auto;
   }
+
 
   .button-subtotal {
     text-align: center;
   }
+
 }
