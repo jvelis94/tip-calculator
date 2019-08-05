@@ -115,6 +115,12 @@ button {
   padding: 5px 8px;
 }
 
+button a {
+  background-color: #0066FF;
+  color: #ffffff;
+  text-decoration: none;
+}
+
 .breakdown {
   width: 450px;
   text-align: center;
