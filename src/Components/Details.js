@@ -13,7 +13,7 @@ function MealSub(props) {
             <label htmlFor='meal_subtotal'>What was the bill total <small>(before tax and tip)?</small></label><br></br>
             <input name='meal_subtotal' placeholder={`$${props.meal_subtotal}`} onChange={props.handleInputChange   }></input><br></br>
             <div className='links' style={{float: 'right'}}>
-                <Link to='/shared_items'>Next</Link>
+                <button><Link to='/shared_items'>Next</Link></button>
             </div>
         </form>
         )
@@ -25,8 +25,8 @@ function SharedItems(props) {
             <label htmlFor='shared_items'>If you shared any items, what was the total of all those items?</label><br></br>
             <input name='shared_items' placeholder={`$${props.shared_items}`} onChange={props.handleInputChange}></input><br></br>
             <div className='links'>
-                <Link to='/'>Back</Link>
-                <Link to='/tax'>Next</Link>
+                <button><Link to='/'>Back</Link></button>
+                <button><Link to='/tax'>Next</Link></button>
             </div>
         </form>
     )
@@ -38,8 +38,8 @@ function Tax(props) {
             <label htmlFor='tax'>Tax:</label><br></br>
             <input name='tax' placeholder={`$${props.tax}`} onChange={props.handleInputChange}></input><br></br>
             <div className='links'>
-                <Link to='/shared_items'>Back</Link>
-                <Link to='/tip'>Next</Link>
+                <button><Link to='/shared_items'>Back</Link></button>
+                <button><Link to='/tip'>Next</Link></button>
             </div>
         </form>
     )
@@ -51,8 +51,8 @@ function Tip(props) {
             <label htmlFor='tip'>How much are you tipping your server?</label><br></br>
             <input name='tip' placeholder={`%${props.tip}`} onChange={props.handleInputChange}></input><br></br>
             <div className='links'>
-                <Link to='/tax'>Back</Link>
-                <Link to='/grand_total'>Next</Link>
+                <button><Link to='/tax'>Back</Link></button>
+                <button><Link to='/grand_total'>Next</Link></button>
             </div>
         </form>
     )
@@ -66,8 +66,8 @@ function GrandTotal(props) {
             <input name='total' value={`$${grand_total.toFixed(2)}`} readOnly></input><br></br>
             <section style={{marginBottom: '20px'}}>Now lets add people to split this with</section>
             <div className='links'>
-                <Link to='/tip'>Back</Link>
-                <Link to='/person/1'>Add People</Link>
+                <button><Link to='/tip'>Back</Link></button>
+                <button><Link to='/person/1'>Add People</Link></button>
             </div>
         </form>
     )
