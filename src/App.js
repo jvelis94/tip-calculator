@@ -7,7 +7,7 @@ import { Details } from './Components/Details'
 function App() {
   return (
       <div className="App">
-      <header>Split Bill Calculator</header>
+      
         <Details/>
       </div>
   );
