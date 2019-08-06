@@ -10,7 +10,7 @@ code {
 }
 
 * {
-  background-color: #F8F8F8;
+  background-color: #ffffff;
   font-family: 'Raleway', sans-serif;
 }
 
@@ -32,7 +32,7 @@ header {
   font-size: 32px;
   font-weight: bold;
   margin: 20px auto 40px auto;
-  color: #0066FF;
+  color: #2899D4;
 }
 
 small {
@@ -56,7 +56,7 @@ small {
 }
 
 .order-total label {
-  font-size: 18px;
+  font-size: 24px;
 }
 
 .order-total input {
@@ -72,15 +72,15 @@ small {
 .person {
   display: flex;
   justify-content: space-around;
-  border-top: .5px solid #0066FF;
+  border-top: .5px solid #2899D4;
   padding: 20px 0;
   margin: 0 auto;
-  font-size: 18 px;
+  font-size: 24 px;
 }
 
 .person h3 {
   margin: 0;
-  font-size: 18px;
+  font-size: 24px;
 }
 
 .person form {
@@ -96,27 +96,31 @@ small {
   width: 40%;
 }
 
+.person label, p {
+  font-size: 18px;
+}
+
 .button {
   text-align: center;
-  border-top: 0.5px solid #0066FF;
+  border-top: 0.5px solid #2899D4;
   padding: 20px 0;
   width: 90%;
   margin: 0 auto;
 }
 
 button {
-  background-color: #0066FF;
+  background-color: #2899D4;
   color: #ffffff;
-  font-size: 14px;
-  font-weight: bold;
+  font-size: 16px;
   border-radius: 8px;
   border: 0.5px solid #ffffff;
   padding: 5px 8px;
 }
 
 button a {
-  background-color: #0066FF;
+  background-color: #2899D4;
   color: #ffffff;
+  font-weight: bolder;
   text-decoration: none;
 }
 
@@ -136,7 +140,7 @@ button a {
 
 .breakdown h2 {
   text-align: center;
-  font-size: 16px;
+  font-size: 24px;
 }
 
 .tooltip {
@@ -152,7 +156,7 @@ button a {
   left: 50%;
   font-weight: bold;
   width: 75px;
-  background-color: #0066FF;
+  background-color: #2899D4;
   color: #ffffff;
   text-align: center;
   border-radius: 5px;
