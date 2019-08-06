@@ -6,7 +6,7 @@ import {
     Route,
     Link,
   } from 'react-router-dom'
-import split_logo from './split_logo.png'
+import split_logo from '../split_logo.png'
 
 function MealSub(props) {
     return (
@@ -61,7 +61,7 @@ function Tip(props) {
         <header><img src={split_logo} alt='Split' style={{width: '125px', height: '125px' }}/></header>
         <form>
             <label htmlFor='tip'>How much are you tipping your server?</label><br></br>
-            <input name='tip' placeholder={`%${props.tip}`} onChange={props.handleInputChange}></input><br></br>
+            <input name='tip' placeholder={`${props.tip}%`} onChange={props.handleInputChange}></input><br></br>
             <div className='links'>
                 <button><Link to='/tax'>Back</Link></button>
                 <button><Link to='/grand_total'>Next</Link></button>
