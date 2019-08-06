@@ -9,7 +9,8 @@ class Person extends React.Component {
             item_quantity: 0,
             items_counter: 0,
             item_totals: [],
-            items_totals_sum: 0
+            items_totals_sum: 0,
+            active: false
         }
     }
 
@@ -35,6 +36,12 @@ class Person extends React.Component {
 
     renderItemTotal = () => {
         return parseFloat(this.state.item) * parseFloat(this.state.item_quantity)
+    }
+
+    toggleDetails = () => {
+        this.setState({
+            active: !this.state.active
+        })
     }
     
     render() {
@@ -69,13 +76,14 @@ class Person extends React.Component {
                     </div>
                 </div>
                 <div className='breakdown'>
-                <h2>Should pay</h2>
+                <h2>Should pay: ${person_total.toFixed(2)}</h2><button onClick = {this.toggleDetails} style={{backgroundColor: '#ffffff', color: '#2899D4'}}>details</button>
                     <div className='person-details'>
+                        <div className={(this.state.active).toString()}>
                         <p>Subtotal: ${this.state.items_totals_sum}</p><br></br>
                         <p className='tooltip'>Shared: ${shared_total.toFixed(2)}<span className='tooltiptext'>tax is included in this amount</span></p><br></br>
                         <p>Tax: ${person_tax.toFixed(2)}</p><br></br>
                         <p>Tip: ${((parseFloat(this.props.tip)/100) * parseFloat(this.state.items_totals_sum)).toFixed(2)}</p><br></br>
-                        <p>Total: ${person_total.toFixed(2)}</p>
+                        </div>
                     </div>
                 </div>    
             </div>
